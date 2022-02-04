@@ -8,8 +8,16 @@ github: https://github.com/theredditbandit
 #include<iostream>
 #ifdef _WIN32
 	#include<io.h>
+	void clrscr()
+	{
+	system("cls");
+	}
 #elif __linux__
 	#include<unistd.h>
+	void clrscr()
+	{
+	system("clear");
+	}
 #endif 
 int ch = 1; //code that counts the turn
 using namespace std;
@@ -53,10 +61,7 @@ int InitBoard(string a1,string a2,string a3,string b1,string b2,string b3,string
 
 	
 
-void clrscr()
-{
-	system("clear");
-}
+
 
 int StartGame()
 {
@@ -94,7 +99,7 @@ clrscr();
 InitBoard(ga1,ga2,ga3,gb1,gb2,gb3,gc1,gc2,gc3);
 	
 }
-void win()
+void Check_Win()
 {	
 
 	if(ga1==ga2 && ga2==ga3){
@@ -129,6 +134,10 @@ void win()
 		cout<<gc1<<" Won !!\n";
 		exit(0);
 		}
+	if(ch > 9){
+		cout<<"Match Draw\n";
+		exit(0);
+	}
 }
 int PlayGame()
 {
@@ -143,7 +152,7 @@ int PlayGame()
 	ch = ch+1;
 	UpdateBoard(input,choice);
 	cin.get();
-	win();
+	Check_Win();
 	PlayGame();
 	return 0;
 }
@@ -154,6 +163,6 @@ int main()
 	char x = 'X', o='O',b = '\0'; 
 	StartGame();
 	PlayGame();
-	win();
+	Check_Win();
 }
 
